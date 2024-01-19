@@ -17,7 +17,12 @@
     <a-layout>
       <a-layout-header class="header">
         <div class="logo" />
-        <a-menu :selectable="false" theme="dark" mode="horizontal" :style="{ lineHeight: '64px', width: '350px' }">
+        <a-menu
+          :selectable="false"
+          theme="dark"
+          mode="horizontal"
+          :style="{ lineHeight: '64px', width: '350px' }"
+        >
           <a-menu-item key="1">
             <a-button type="primary" @click="visible = true">预览和设置</a-button>
           </a-menu-item>
@@ -31,22 +36,56 @@
       </a-layout-header>
     </a-layout>
     <a-layout>
-      <a-layout-sider width="300" style="background: #fff;">
-        <h2>组件库list在这里搞起</h2>
+      <a-layout-sider width="300" style="background: #fff">
+        <h2>点击下列组件列表添加</h2>
+        <div @click="onItemCreated">
+          <Title text="hello world"></Title>
+        </div>
       </a-layout-sider>
-      <a-layout style="padding: 0 24px 24px;">
-        <a-layout-content :style="{background: '#fff', padding: '24px', margin: 0, minHeight: '90vh'}">
+      <a-layout style="padding: 0 24px 24px">
+        <a-layout-content
+          :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '90vh' }"
+        >
           Content main editor is here baby
+          <ul>
+            <li v-for="(item, index) in components" :key="index">
+              <div @click="editProps(index)">
+                <component :is="item.name" v-bind="item.props" />
+              </div>
+            </li>
+          </ul>
         </a-layout-content>
       </a-layout>
-      <a-layout-sider width="300" style="background: #fff;">
+      <a-layout-sider width="300" style="background: #fff">
         <a-tabs type="card">
           <a-tab-pane key="1" tab="属性设置">
-            Content of Tab Pane 1
+            <div v-if="currentElement">
+              <li v-for="(value, key) in currentElement.props" :key="key">
+                {{ key }}:
+                <component
+                  v-if="mapPropsToComponents[key] === 'a-input'"
+                  :is="mapPropsToComponents[key]"
+                  :value="value"
+                  @change="
+                    (e) => {
+                      updateValue(e, key)
+                    }
+                  "
+                />
+                <component
+                  v-if="mapPropsToComponents[key] === 'a-input-number'"
+                  :is="mapPropsToComponents[key]"
+                  :value="parseInt(value)"
+                  @change="
+                    (e) => {
+                      updateValueNumber(e, key)
+                    }
+                  "
+                />
+              </li>
+            </div>
           </a-tab-pane>
-          <a-tab-pane key="2" tab="功能设置">
-            Content of Tab Pand 2
-          </a-tab-pane>
+          <a-tab-pane key="2" tab="功能设置"> Content of Tab Pand 2 </a-tab-pane>
         </a-tabs>
       </a-layout-sider>
     </a-layout>
@@ -54,12 +93,43 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { useGlobalDataStore } from '@/stores/globalData'
+import Title, { defaultProps } from '@/components/Title'
+import { clone } from 'lodash-es'
 
+const globalData = useGlobalDataStore()
 const visible = ref(false)
 const showModal = ref(false)
+const components = computed(() => globalData.components)
+const currentElement = computed(() => globalData.getCurrentElement)
+const mapPropsToComponents = {
+  text: 'a-input',
+  fontSize: 'a-input-number'
+}
 const handleOk = () => {
   showModal.value = false
+}
+const onItemCreated = (type: string) => {
+  globalData.addComponentToEditor({
+    name: Title,
+    props: clone(defaultProps)
+  })
+}
+const editProps = (index: number) => {
+  globalData.editProps(index)
+}
+const updateValue = (e: any, key: string) => {
+  globalData.updateValue({
+    key,
+    value: e.target.value
+  })
+}
+const updateValueNumber = (e: any, key: string) => {
+  globalData.updateValue({
+    key,
+    value: e
+  })
 }
 </script>
 

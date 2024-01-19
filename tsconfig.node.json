@@ -12,6 +12,6 @@
     "noEmit": true,
     "module": "ESNext",
     "moduleResolution": "Classic",
-    "types": ["node"]
+    "types": ["node", "lodash-es"]
   }
 }
