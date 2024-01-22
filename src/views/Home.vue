@@ -37,12 +37,14 @@
     </a-layout>
     <a-layout>
       <a-layout-sider width="300" style="background: #fff">
-        <h2>点击下列组件列表添加</h2>
-        <div @click="onItemCreated('title')">
-          <Title></Title>
-        </div>
-        <div @click="onItemCreated('l-link')">
-          <l-link></l-link>
+        <div class="sidebar-container">
+          <h2>点击下列组件列表添加</h2>
+          <div @click="onItemCreated('title')">
+            <Title></Title>
+          </div>
+          <div @click="onItemCreated('l-link')">
+            <l-link></l-link>
+          </div>
         </div>
       </a-layout-sider>
       <a-layout style="padding: 0 24px 24px">
@@ -50,11 +52,11 @@
           :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '90vh' }"
         >
           预览区域
-          <ul>
+          <ul class="preview-list">
             <li v-for="(item, index) in components" :key="index">
-              <div @click="editProps(index)">
+              <EditWrapper @edit="editProps" :active="currentIndex === index" :item-key="index">
                 <component :is="item.name" v-bind="item.props" />
-              </div>
+              </EditWrapper>
             </li>
           </ul>
         </a-layout-content>
@@ -63,7 +65,9 @@
         <a-tabs type="card">
           <a-tab-pane key="1" tab="属性设置">
             <div v-if="currentElement">
-              <PropsTable :props="currentElement.props" :type="currentElement.name"></PropsTable>
+              <div class="sidebar-container">
+                <PropsTable :props="currentElement.props" :type="currentElement.name"></PropsTable>
+              </div>
               <!-- <li v-for="(value, key) in currentElement.props" :key="key">
                 {{ key }}:
                 <component
@@ -105,11 +109,14 @@ import PropsTable from '@/components/PropsTable.vue'
 import { clone } from 'lodash-es'
 import mapPropsToComponents from '@/propsMap'
 import componentsDefaultProps from '@/defaultProps'
+import EditWrapper from '@/components/EditWrapper.vue'
 
 defineOptions({
   components: {
     Title,
-    LLink
+    LLink,
+    PropsTable,
+    EditWrapper
   }
 })
 
@@ -117,6 +124,7 @@ const globalData = useGlobalDataStore()
 const visible = ref(false)
 const showModal = ref(false)
 const components = computed(() => globalData.components)
+const currentIndex = computed(() => globalData.currentElement)
 const currentElement = computed(() => globalData.getCurrentElement)
 const handleOk = () => {
   showModal.value = false
@@ -151,5 +159,13 @@ const editProps = (index: number) => {
 .header {
   display: flex;
   justify-content: space-between;
+}
+.preview-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.sidebar-container {
+  padding: 20px;
 }
 </style>

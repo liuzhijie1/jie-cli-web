@@ -1,9 +1,11 @@
 <template>
   <div class="props-table">
     {{ type }}
-    <li v-for="(value, key) in finalProps" :key="key">
-      {{ value.text }}:
-      <component :is="value.component" v-bind="value.value" v-on="value.events" />
+    <li v-for="(value, key) in finalProps" :key="key" class="prop-item">
+      <span class="label">{{ value.text }}:</span>
+      <div :class="`prop-component component-${value.component}`">
+        <component :is="value.component" v-bind="value.extraProps" :[value.valueProp]="value.value" v-on="value.events" />
+      </div>
       <!-- {{ key }}:
       <component
         v-if="maps[key].component === 'a-switch'"
@@ -64,14 +66,12 @@ const handleCommit = (data: any) => {
 const extraProps = computed(() => defaults[originProps.type].extraProps || {})
 const finalProps = computed(() => {
   return map(originProps.props, (value, key) => {
-    const { component, intialTransform, afterTransform, eventName, text, bindName } = maps[key]
+    const { component, intialTransform, afterTransform, eventName, text, valueProp } = maps[key]
     return {
       component,
       text,
-      value: {
-        ...extraProps,
-        [bindName]: intialTransform(value)
-      },
+      value: intialTransform(value),
+      valueProp,
       extraProps: extraProps,
       events: {
         [eventName]: (e: any) => {
@@ -85,3 +85,16 @@ const finalProps = computed(() => {
   })
 })
 </script>
+<style>
+.prop-item {
+  display: flex;
+  margin-bottom: 10px;
+  align-items: center;
+}
+.label {
+  margin-right: 20px;
+}
+.component-a-slider {
+  width: 80%;
+}
+</style>

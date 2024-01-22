@@ -38,3 +38,9 @@ const styleProps = computed(() => pick(props, stylePropsArr))
 //   fontWeight: 'normal'
 // }
 </script>
+
+<style scoped>
+h2 {
+  margin-bottom: 0;
+}
+</style>

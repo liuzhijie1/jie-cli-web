@@ -3,7 +3,7 @@ import { useGlobalDataStore } from './stores/globalData'
 interface PropDetailType {
   component: string;
   eventName: string;
-  bindName: string;
+  valueProp: string;
   intialTransform: (v: any) => any;
   afterTransform: (v: any) => any;
   text: string;
@@ -15,7 +15,7 @@ interface MapTypes {
 const defaultMap = {
   component: 'a-input',
   eventName: 'change',
-  bindName: 'value',
+  valueProp: 'value',
   intialTransform: (v: any) => v,
   afterTransform: (e: any) => e
 }
@@ -30,12 +30,11 @@ const mapPropsToComponents: MapTypes = {
   href: {
     ...defaultMap,
     afterTransform: (e: any) => e.target.value,
-    text: '链接地址'
+    text: '链接'
   },
   fontSize: {
+    ...defaultMap,
     component: 'a-input-number',
-    eventName: 'change',
-    bindName: 'value',
     intialTransform: (v: any) => parseInt(v),
     afterTransform: (e: any) => e + 'px',
     text: '字号'
@@ -50,9 +49,9 @@ const mapPropsToComponents: MapTypes = {
     // }
   },
   fontWeight: {
+    ...defaultMap,
     component: 'a-switch',
-    eventName: 'change',
-    bindName: 'checked',
+    valueProp: 'checked',
     intialTransform: (v: any) => v === 'bold',
     afterTransform: (e: any) => e ? 'bold' : 'normal',
     text: '是否加粗'

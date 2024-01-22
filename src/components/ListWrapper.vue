@@ -5,9 +5,9 @@
 </template>
 
 <script lang="ts" setup>
-import { defineOptions, defineEmits } from 'vue'
+import { defineEmits } from 'vue'
 
-defineOptions({ name: 'ListWrapper' })
+// defineOptions({ name: 'ListWrapper' })
 const emit = defineEmits<{
   (event: 'item-click'): void
 }>();
