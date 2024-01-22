@@ -38,8 +38,11 @@
     <a-layout>
       <a-layout-sider width="300" style="background: #fff">
         <h2>点击下列组件列表添加</h2>
-        <div @click="onItemCreated">
+        <div @click="onItemCreated('title')">
           <Title></Title>
+        </div>
+        <div @click="onItemCreated('l-link')">
+          <l-link></l-link>
         </div>
       </a-layout-sider>
       <a-layout style="padding: 0 24px 24px">
@@ -60,7 +63,7 @@
         <a-tabs type="card">
           <a-tab-pane key="1" tab="属性设置">
             <div v-if="currentElement">
-              <PropsTable :props="currentElement.props"></PropsTable>
+              <PropsTable :props="currentElement.props" :type="currentElement.name"></PropsTable>
               <!-- <li v-for="(value, key) in currentElement.props" :key="key">
                 {{ key }}:
                 <component
@@ -96,10 +99,19 @@
 <script setup lang="ts">
 import { ref, computed, markRaw } from 'vue'
 import { useGlobalDataStore } from '@/stores/globalData'
-import Title, { defaultProps } from '@/components/Title.vue'
+import Title from '@/components/Title.vue'
+import LLink from '@/components/LLink.vue'
 import PropsTable from '@/components/PropsTable.vue'
 import { clone } from 'lodash-es'
 import mapPropsToComponents from '@/propsMap'
+import componentsDefaultProps from '@/defaultProps'
+
+defineOptions({
+  components: {
+    Title,
+    LLink
+  }
+})
 
 const globalData = useGlobalDataStore()
 const visible = ref(false)
@@ -109,10 +121,13 @@ const currentElement = computed(() => globalData.getCurrentElement)
 const handleOk = () => {
   showModal.value = false
 }
+
 const onItemCreated = (type: string) => {
+  const { props } = componentsDefaultProps[type]
+  console.log('props', props)
   globalData.addComponentToEditor({
-    name: markRaw(Title),
-    props: clone(defaultProps)
+    name: type,
+    props: clone(props)
   })
 }
 const editProps = (index: number) => {

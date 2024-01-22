@@ -1,12 +1,14 @@
 <template>
-  <button :style="styleProps">
-    {{ text }}
-  </button>
+  <div>
+    <a :style="styleProps" :href="href" @click="$event.preventDefault()">
+      {{ text }}
+    </a>
+  </div>
 </template>
 
 <script lang="ts" setup>
 import { pick } from 'lodash-es'
-import { computed, defineProps } from 'vue'
+import { computed } from 'vue'
 
 const TitleProps = {
   text: {
@@ -27,11 +29,15 @@ const defaultProps = {
 const props = defineProps({
   text: {
     type: String,
-    default: '按钮'
+    default: '百度链接'
+  },
+  href: {
+    type: String,
+    default: 'http://abc.com'
   },
   fontSize: {
     type: String,
-    default: '30px'
+    default: '15px'
   }
 })
 

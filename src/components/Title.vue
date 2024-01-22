@@ -20,17 +20,21 @@ const props = defineProps({
   fontWeight: {
     type: String,
     default: 'normal'
+  },
+  lineHeight: {
+    type: Number,
+    default: 1
   }
 })
 
-const stylePropsArr = ['fontSize', 'fontWeight']
+const stylePropsArr = ['fontSize', 'fontWeight', 'lineHeight']
 
 const styleProps = computed(() => pick(props, stylePropsArr))
 </script>
 <script lang="ts">
-export const defaultProps = {
-  text: '大标题',
-  fontSize: '30px',
-  fontWeight: 'normal'
-}
+// export const defaultProps = {
+//   text: '大标题',
+//   fontSize: '30px',
+//   fontWeight: 'normal'
+// }
 </script>
