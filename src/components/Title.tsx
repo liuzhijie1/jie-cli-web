@@ -1,14 +1,32 @@
 import { pick } from 'lodash-es'
 
-// default props for Title component
-export const defaultProps = {
-  text: 'Hello World',
-  fontSize: '30px'
+
+export const TitleProps = {
+  text: {
+    type: String,
+    default: '大标题'
+  },
+  fontSize: {
+    type: String,
+    default: '30px'
+  },
+  fontWeight: {
+    type: String,
+    default: 'normal'
+  }
 }
 
-export const stylePropsArr = ['fontSize']
+// default props for Title component
+export const defaultProps = {
+  text: '大标题',
+  fontSize: '30px',
+  fontWeight: 'normal'
+}
+
+export const stylePropsArr = ['fontSize', 'fontWeight']
 
 const Title = (props: any, context: any) => {
+  console.log(props, '111')
   const mergeProps = { ...defaultProps, ...props}
   const styleProps = pick(mergeProps, stylePropsArr)
   console.log('mergeProps', mergeProps)
@@ -25,7 +43,7 @@ const Title = (props: any, context: any) => {
         })
       }}
     >
-      {props.text}
+      {props.text || mergeProps.text}
     </h2>
   )
 }

@@ -19,16 +19,26 @@ export const useGlobalDataStore = defineStore('globalData', () => {
     components.value.find((component, index) => index === currentElement.value)
   )
 
-  const updateValue = ({key, value}) => {
-    const currentComponent = components.value.find((item, index) => index === currentElement.value) as any
+  const updateValue = ({ key, value }) => {
+    const currentComponent = components.value.find(
+      (item, index) => index === currentElement.value
+    ) as any
     if (currentComponent) {
-      if (typeof value === 'number') {
-        currentComponent.props[key] = value + 'px'
-      } else {
-        currentComponent.props[key] = value
-      }
+      // if (typeof value === 'number') {
+      //   currentComponent.props[key] = value + 'px'
+      // } else {
+      //   currentComponent.props[key] = value
+      // }
+      currentComponent.props[key] = value
     }
   }
 
-  return {components, currentElement, addComponentToEditor, editProps, getCurrentElement, updateValue}
+  return {
+    components,
+    currentElement,
+    addComponentToEditor,
+    editProps,
+    getCurrentElement,
+    updateValue
+  }
 })

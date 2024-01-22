@@ -39,14 +39,14 @@
       <a-layout-sider width="300" style="background: #fff">
         <h2>点击下列组件列表添加</h2>
         <div @click="onItemCreated">
-          <Title text="hello world"></Title>
+          <Title></Title>
         </div>
       </a-layout-sider>
       <a-layout style="padding: 0 24px 24px">
         <a-layout-content
           :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '90vh' }"
         >
-          Content main editor is here baby
+          预览区域
           <ul>
             <li v-for="(item, index) in components" :key="index">
               <div @click="editProps(index)">
@@ -60,7 +60,8 @@
         <a-tabs type="card">
           <a-tab-pane key="1" tab="属性设置">
             <div v-if="currentElement">
-              <li v-for="(value, key) in currentElement.props" :key="key">
+              <PropsTable :props="currentElement.props"></PropsTable>
+              <!-- <li v-for="(value, key) in currentElement.props" :key="key">
                 {{ key }}:
                 <component
                   v-if="mapPropsToComponents[key] === 'a-input'"
@@ -82,7 +83,7 @@
                     }
                   "
                 />
-              </li>
+              </li> -->
             </div>
           </a-tab-pane>
           <a-tab-pane key="2" tab="功能设置"> Content of Tab Pand 2 </a-tab-pane>
@@ -93,44 +94,42 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, markRaw } from 'vue'
 import { useGlobalDataStore } from '@/stores/globalData'
-import Title, { defaultProps } from '@/components/Title'
+import Title, { defaultProps } from '@/components/Title.vue'
+import PropsTable from '@/components/PropsTable.vue'
 import { clone } from 'lodash-es'
+import mapPropsToComponents from '@/propsMap'
 
 const globalData = useGlobalDataStore()
 const visible = ref(false)
 const showModal = ref(false)
 const components = computed(() => globalData.components)
 const currentElement = computed(() => globalData.getCurrentElement)
-const mapPropsToComponents = {
-  text: 'a-input',
-  fontSize: 'a-input-number'
-}
 const handleOk = () => {
   showModal.value = false
 }
 const onItemCreated = (type: string) => {
   globalData.addComponentToEditor({
-    name: Title,
+    name: markRaw(Title),
     props: clone(defaultProps)
   })
 }
 const editProps = (index: number) => {
   globalData.editProps(index)
 }
-const updateValue = (e: any, key: string) => {
-  globalData.updateValue({
-    key,
-    value: e.target.value
-  })
-}
-const updateValueNumber = (e: any, key: string) => {
-  globalData.updateValue({
-    key,
-    value: e
-  })
-}
+// const updateValue = (e: any, key: string) => {
+//   globalData.updateValue({
+//     key,
+//     value: e.target.value
+//   })
+// }
+// const updateValueNumber = (e: any, key: string) => {
+//   globalData.updateValue({
+//     key,
+//     value: e
+//   })
+// }
 </script>
 
 <style scoped>
