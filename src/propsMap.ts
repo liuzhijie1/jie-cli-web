@@ -7,6 +7,8 @@ interface PropDetailType {
   intialTransform: (v: any) => any;
   afterTransform: (v: any) => any;
   text: string;
+  subComponents?: string,
+  options?: {text: string; value: any}[];
 }
 interface MapTypes {
   [key: string]: PropDetailType
@@ -68,6 +70,18 @@ const mapPropsToComponents: MapTypes = {
     ...defaultMap,
     component: 'a-slider',
     text: '行高'
+  },
+  textAlign: {
+    ...defaultMap,
+    text: '对齐',
+    component: 'a-radio-group',
+    subComponents: 'a-radio-button',
+    afterTransform: (e: any) => e.target.value,
+    options: [
+      {value: 'left', text: '左'},
+      {value: 'center', text: '中'},
+      {value: 'right', text: '右'},
+    ]
   }
 }
 

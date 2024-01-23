@@ -4,7 +4,24 @@
     <li v-for="(value, key) in finalProps" :key="key" class="prop-item">
       <span class="label">{{ value.text }}:</span>
       <div :class="`prop-component component-${value.component}`">
-        <component :is="value.component" v-bind="value.extraProps" :[value.valueProp]="value.value" v-on="value.events" />
+        <component
+          v-if="!value.options"
+          :is="value.component"
+          v-bind="value.extraProps"
+          :[value.valueProp]="value.value"
+          v-on="value.events"
+        />
+        <component
+          v-else
+          :is="value.component"
+          v-bind="value.extraProps"
+          :[value.valueProp]="value.value"
+          v-on="value.events"
+        >
+          <component :is="value.subComponents" v-for="(option, k) in value.options" :value="option.value" :key="k">
+            {{ option.text }}
+          </component>
+        </component>
       </div>
       <!-- {{ key }}:
       <component
@@ -66,7 +83,16 @@ const handleCommit = (data: any) => {
 const extraProps = computed(() => defaults[originProps.type].extraProps || {})
 const finalProps = computed(() => {
   return map(originProps.props, (value, key) => {
-    const { component, intialTransform, afterTransform, eventName, text, valueProp } = maps[key]
+    const {
+      component,
+      intialTransform,
+      afterTransform,
+      eventName,
+      text,
+      valueProp,
+      options,
+      subComponents
+    } = maps[key]
     return {
       component,
       text,
@@ -75,12 +101,15 @@ const finalProps = computed(() => {
       extraProps: extraProps,
       events: {
         [eventName]: (e: any) => {
+          console.log('change', key, e)
           handleCommit({
             key,
             value: afterTransform(e)
           })
         }
-      }
+      },
+      options,
+      subComponents
     }
   })
 })

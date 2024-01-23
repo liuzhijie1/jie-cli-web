@@ -24,10 +24,14 @@ const props = defineProps({
   lineHeight: {
     type: Number,
     default: 1
+  },
+  textAlign: {
+    type: String,
+    default: 'left'
   }
 })
 
-const stylePropsArr = ['fontSize', 'fontWeight', 'lineHeight']
+const stylePropsArr = ['fontSize', 'fontWeight', 'lineHeight', 'textAlign']
 
 const styleProps = computed(() => pick(props, stylePropsArr))
 </script>
