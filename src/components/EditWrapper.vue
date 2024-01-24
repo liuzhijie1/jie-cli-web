@@ -13,7 +13,7 @@ import { defineEmits } from 'vue'
 
 const props = defineProps({
   itemKey: {
-    type: Number,
+    type: String,
     required: true
   },
   active: {

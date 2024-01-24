@@ -53,8 +53,8 @@
         >
           预览区域
           <ul class="preview-list">
-            <li v-for="(item, index) in components" :key="index">
-              <EditWrapper @edit="editProps" :active="currentIndex === index" :item-key="index">
+            <li v-for="item in components" :key="item.id">
+              <EditWrapper @edit="editProps" :active="currentIndex === item.id" :item-key="item.id">
                 <component :is="item.name" v-bind="item.props" />
               </EditWrapper>
             </li>
@@ -138,7 +138,7 @@ const onItemCreated = (type: string) => {
     props: clone(props)
   })
 }
-const editProps = (index: number) => {
+const editProps = (index: string) => {
   globalData.editProps(index)
 }
 // const updateValue = (e: any, key: string) => {

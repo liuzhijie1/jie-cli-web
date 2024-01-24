@@ -1,27 +1,35 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
+import { v4 as uuidv4 } from 'uuid'
+
+interface ComponentData {
+  props: { [key: string]: any };
+  id: string;
+  name: string;
+}
 
 export interface globalDataProps {
-  components: any[]
-  currentElement: number
+  components: ComponentData[]
+  currentElement: string
 }
 
 export const useGlobalDataStore = defineStore('globalData', () => {
   const components = ref<any[]>([])
-  const currentElement = ref(-1)
+  const currentElement = ref('')
   const addComponentToEditor = (component: any) => {
+    component.id = uuidv4();
     components.value.push(component)
   }
-  const editProps = (index: number) => {
+  const editProps = (index: string) => {
     currentElement.value = index
   }
   const getCurrentElement = computed(() =>
-    components.value.find((component, index) => index === currentElement.value)
+    components.value.find((component) => component.id === currentElement.value)
   )
 
-  const updateValue = ({ key, value }) => {
+  const updateValue = ({ key, value }: {key: string; value: any}) => {
     const currentComponent = components.value.find(
-      (item, index) => index === currentElement.value
+      (item) => item.id === currentElement.value
     ) as any
     if (currentComponent) {
       // if (typeof value === 'number') {
