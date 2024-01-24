@@ -9,6 +9,7 @@
 <script lang="ts" setup>
 import { pick } from 'lodash-es'
 import { computed } from 'vue'
+import useStylePick from '@/hooks/useStylePick';
 
 const TitleProps = {
   text: {
@@ -41,7 +42,8 @@ const props = defineProps({
   }
 })
 
-const stylePropsArr = ['fontSize']
+// const stylePropsArr = ['fontSize']
 
-const styleProps = computed(() => pick(props, stylePropsArr))
+// const styleProps = computed(() => pick(props, stylePropsArr))
+const styleProps = useStylePick(props)
 </script>
