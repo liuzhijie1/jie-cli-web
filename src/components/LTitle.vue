@@ -34,7 +34,7 @@ import { componentsDefaultProps, transformToComponentProps } from '@/defaultProp
 //   }
 // }
 
-const props = defineProps(transformToComponentProps(componentsDefaultProps.title.props))
+const props = defineProps(transformToComponentProps(componentsDefaultProps['l-title'].props))
 
 // const stylePropsArr = ['fontSize', 'fontWeight', 'lineHeight', 'textAlign']
 

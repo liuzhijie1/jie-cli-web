@@ -38,20 +38,21 @@
     <a-layout>
       <a-layout-sider width="300" style="background: #fff">
         <div class="sidebar-container">
-          <h2>点击下列组件列表添加</h2>
-          <div @click="onItemCreated('title')">
-            <Title></Title>
+          <h2>组件面板</h2>
+          <ComponentsList @on-item-click="onItemCreated"></ComponentsList>
+          <!-- <div @click="onItemCreated('title')">
+            <LTitle></LTitle>
           </div>
           <div @click="onItemCreated('l-link')">
             <l-link></l-link>
-          </div>
+          </div> -->
         </div>
       </a-layout-sider>
       <a-layout style="padding: 0 24px 24px">
         <a-layout-content
           :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '90vh' }"
         >
-          预览区域
+          画布区域
           <ul class="preview-list">
             <li v-for="item in components" :key="item.id">
               <EditWrapper @edit="editProps" :active="currentIndex === item.id" :item-key="item.id">
@@ -103,20 +104,23 @@
 <script setup lang="ts">
 import { ref, computed, markRaw } from 'vue'
 import { useGlobalDataStore } from '@/stores/globalData'
-import Title from '@/components/Title.vue'
+// import Title from '@/components/Title.vue'
+import LTitle from '@/components/LTitle.vue'
 import LLink from '@/components/LLink.vue'
 import PropsTable from '@/components/PropsTable.vue'
 import { clone } from 'lodash-es'
 import mapPropsToComponents from '@/propsMap'
 import componentsDefaultProps from '@/defaultProps'
 import EditWrapper from '@/components/EditWrapper.vue'
+import ComponentsList from '@/components/ComponentsList.vue'
 
 defineOptions({
   components: {
-    Title,
+    LTitle,
     LLink,
     PropsTable,
-    EditWrapper
+    EditWrapper,
+    ComponentsList
   }
 })
 

@@ -10,7 +10,7 @@ interface DefaultPropsType {
 }
 
 export const componentsDefaultProps: DefaultPropsType = {
-  title: {
+  'l-title': {
     props: {
       text: '大标题',
       fontSize: '30px',
