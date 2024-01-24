@@ -8,29 +8,33 @@
 import { pick } from 'lodash-es'
 import { computed } from 'vue'
 import useStylePick from '@/hooks/useStylePick'
+import { componentsDefaultProps, transformToComponentProps } from '@/defaultProps'
 
-const props = defineProps({
-  text: {
-    type: String,
-    default: '大标题'
-  },
-  fontSize: {
-    type: String,
-    default: '30px'
-  },
-  fontWeight: {
-    type: String,
-    default: 'normal'
-  },
-  lineHeight: {
-    type: Number,
-    default: 1
-  },
-  textAlign: {
-    type: String,
-    default: 'left'
-  }
-})
+// Props
+// {
+//   text: {
+//     type: String,
+//     default: '大标题'
+//   },
+//   fontSize: {
+//     type: String,
+//     default: '30px'
+//   },
+//   fontWeight: {
+//     type: String,
+//     default: 'normal'
+//   },
+//   lineHeight: {
+//     type: Number,
+//     default: 1
+//   },
+//   textAlign: {
+//     type: String,
+//     default: 'left'
+//   }
+// }
+
+const props = defineProps(transformToComponentProps(componentsDefaultProps.title.props))
 
 // const stylePropsArr = ['fontSize', 'fontWeight', 'lineHeight', 'textAlign']
 

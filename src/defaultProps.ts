@@ -1,3 +1,5 @@
+import { mapValues } from "lodash-es";
+
 interface DefaultPropsType {
   [key: string]: {
     props: object;
@@ -30,6 +32,15 @@ export const componentsDefaultProps: DefaultPropsType = {
       fontSize: '15px'
     }
   }
+}
+
+export const transformToComponentProps = (props: {[key: string]: any}) => {
+  return mapValues(props, (item) => {
+    return {
+      type: item.constructor,
+      default: item
+    }
+  })
 }
 
 export default componentsDefaultProps;

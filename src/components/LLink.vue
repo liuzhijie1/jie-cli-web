@@ -10,37 +10,25 @@
 import { pick } from 'lodash-es'
 import { computed } from 'vue'
 import useStylePick from '@/hooks/useStylePick';
+import { componentsDefaultProps, transformToComponentProps } from '@/defaultProps'
 
-const TitleProps = {
-  text: {
-    type: String,
-    default: '按钮'
-  },
-  fontSize: {
-    type: String,
-    default: '30px'
-  }
-}
+// Props
+// {
+//   text: {
+//     type: String,
+//     default: '百度链接'
+//   },
+//   href: {
+//     type: String,
+//     default: 'http://abc.com'
+//   },
+//   fontSize: {
+//     type: String,
+//     default: '15px'
+//   }
+// }
 
-const defaultProps = {
-  text: 'Hello world',
-  fontSize: '30px'
-}
-
-const props = defineProps({
-  text: {
-    type: String,
-    default: '百度链接'
-  },
-  href: {
-    type: String,
-    default: 'http://abc.com'
-  },
-  fontSize: {
-    type: String,
-    default: '15px'
-  }
-})
+const props = defineProps(transformToComponentProps(componentsDefaultProps['l-link'].props))
 
 // const stylePropsArr = ['fontSize']
 
