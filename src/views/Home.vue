@@ -113,6 +113,7 @@ import mapPropsToComponents from '@/propsMap'
 import componentsDefaultProps from '@/defaultProps'
 import EditWrapper from '@/components/EditWrapper.vue'
 import ComponentsList from '@/components/ComponentsList.vue'
+import ColorPicker from '@/components/ColorPicker.vue'
 
 defineOptions({
   components: {
@@ -120,7 +121,8 @@ defineOptions({
     LLink,
     PropsTable,
     EditWrapper,
-    ComponentsList
+    ComponentsList,
+    ColorPicker
   }
 })
 

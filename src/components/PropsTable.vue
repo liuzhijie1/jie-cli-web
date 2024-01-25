@@ -2,7 +2,7 @@
   <div class="props-table">
     {{ type }}
     <li v-for="(value, key) in finalProps" :key="key" class="prop-item">
-      <span class="label">{{ value.text }}:</span>
+      <span class="label">{{ value.text }}: </span>
       <div :class="`prop-component component-${value.component}`">
         <component
           v-if="!value.options"
@@ -64,6 +64,13 @@ import { useGlobalDataStore } from '@/stores/globalData'
 import defaults from '@/defaultProps'
 import { computed } from 'vue'
 import { map } from 'lodash-es'
+import ColorPicker from './ColorPicker.vue'
+
+defineOptions({
+  components: {
+    ColorPicker
+  }
+})
 
 const globalData = useGlobalDataStore()
 
@@ -121,7 +128,7 @@ const finalProps = computed(() => {
   align-items: center;
 }
 .label {
-  margin-right: 20px;
+  width: 17%;
 }
 .component-a-slider {
   width: 80%;

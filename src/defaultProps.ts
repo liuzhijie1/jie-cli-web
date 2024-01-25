@@ -16,7 +16,8 @@ export const componentsDefaultProps: DefaultPropsType = {
       fontSize: '30px',
       fontWeight: 'normal',
       lineHeight: 1,
-      textAlign: 'left'
+      textAlign: 'left',
+      color: '#000000'
     },
     extraProps: {
       lineHeight: {
