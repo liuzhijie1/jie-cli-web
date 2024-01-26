@@ -80,7 +80,7 @@ const onChange = (color: string) => {
   background-color: transparent;
 }
 .picked-color-list {
-  padding: 0 0 0 10px;
+  padding: 0 0 0 5px;
   margin: 0;
   width: 60%;
   display: flex;

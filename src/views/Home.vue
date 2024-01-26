@@ -138,7 +138,7 @@ const handleOk = () => {
 
 const onItemCreated = (type: string) => {
   const { props } = componentsDefaultProps[type]
-  console.log('props', props)
+  // console.log('props', props)
   globalData.addComponentToEditor({
     name: type,
     props: clone(props)

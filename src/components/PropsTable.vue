@@ -18,7 +18,7 @@
           :[value.valueProp]="value.value"
           v-on="value.events"
         >
-          <component :is="value.subComponents" v-for="(option, k) in value.options" :value="option.value" :key="k">
+          <component :is="value.subComponent" v-for="(option, k) in value.options" :value="option.value" :key="k">
             {{ option.text }}
           </component>
         </component>
@@ -87,7 +87,9 @@ const originProps = defineProps({
 const handleCommit = (data: any) => {
   globalData.updateValue(data)
 }
-const extraProps = computed(() => defaults[originProps.type].extraProps || {})
+
+// console.log('originProps.props', originProps.props)
+// const extraProps = computed(() => defaults[originProps.type].extraProps || {})
 const finalProps = computed(() => {
   return map(originProps.props, (value, key) => {
     const {
@@ -98,17 +100,19 @@ const finalProps = computed(() => {
       text,
       valueProp,
       options,
-      subComponents
+      subComponent,
+      extraProps = {}
     } = maps[key]
+    // console.log('extraProps', extraProps, key)
     return {
       component,
       text,
       value: intialTransform(value),
       valueProp,
-      extraProps: extraProps,
+      extraProps,
       events: {
         [eventName]: (e: any) => {
-          console.log('change', key, e)
+          // console.log('change', key, e)
           handleCommit({
             key,
             value: afterTransform(e)
@@ -116,7 +120,7 @@ const finalProps = computed(() => {
         }
       },
       options,
-      subComponents
+      subComponent
     }
   })
 })
@@ -128,9 +132,15 @@ const finalProps = computed(() => {
   align-items: center;
 }
 .label {
-  width: 17%;
+  width: 20%;
+}
+.prop-component {
+  width: 70%;
 }
 .component-a-slider {
   width: 80%;
+}
+.component-a-select .ant-select {
+  width: 90%;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <h2 :style="styleProps">
+  <h2 :style="styleProps" @click.prevent="handleClick">
     {{ text }}
   </h2>
 </template>
@@ -40,6 +40,12 @@ const props = defineProps(transformToComponentProps(componentsDefaultProps['l-ti
 
 // const styleProps = computed(() => pick(props, stylePropsArr))
 const styleProps = useStylePick(props)
+
+const handleClick = () => {
+  if (props.actionType && props.url) {
+    window.location.href = props.url;
+  }
+}
 </script>
 <script lang="ts">
 // export const defaultProps = {

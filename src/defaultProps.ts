@@ -9,15 +9,42 @@ interface DefaultPropsType {
   }
 }
 
+export const commonDefaultProps = {
+  // Basic props - font styles
+  fontSize: '14px',
+  fontWeight: 'normal',
+  lineHeight: 1,
+  textAlign: 'left',
+  color: '#000000',
+  backgroundColor: '#ffffff',
+  // actions
+  actionType: '',
+  url: '',
+  // size
+  height: '',
+  marginLeft: '0px',
+  marginRight: '0px',
+  marginTop: '0px',
+  // border type
+  borderStyle: 'none',
+  borderColor: '#000',
+  borderWidth: '0',
+  borderRadius: '0',
+  // shadow and opacity
+  // boxShadow: ''
+  opacity: 1,
+  // position and x,y
+  position: '',
+  top: '0',
+  left: '0'
+}
+
 export const componentsDefaultProps: DefaultPropsType = {
   'l-title': {
     props: {
       text: '大标题',
+      ...commonDefaultProps,
       fontSize: '30px',
-      fontWeight: 'normal',
-      lineHeight: 1,
-      textAlign: 'left',
-      color: '#000000'
     },
     extraProps: {
       lineHeight: {
