@@ -40,4 +40,7 @@ const itemClick = () => {
 .edit-wrapper.active {
   border: 1px solid #1890ff;
 }
+.edit-wrapper h2 {
+  position: static !important;
+}
 </style>
