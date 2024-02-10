@@ -187,11 +187,11 @@ const mapPropsToComponents: MapTypes = {
       { value: 'absolute', text: '绝对定位' }
     ]
   },
-  top: {
+  left: {
     ...numberToPxHandle,
     text: '位置X'
   },
-  left: {
+  top: {
     ...numberToPxHandle,
     text: '位置Y'
   }
