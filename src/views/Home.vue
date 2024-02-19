@@ -66,8 +66,11 @@
         <a-tabs type="card">
           <a-tab-pane key="1" tab="属性设置">
             <div v-if="currentElement">
-              <div class="sidebar-container">
+              <!-- <div class="sidebar-container">
                 <PropsTable :props="currentElement.props" :type="currentElement.name"></PropsTable>
+              </div> -->
+              <div>
+                <edit-group :props="currentElement.props"></edit-group>
               </div>
               <!-- <li v-for="(value, key) in currentElement.props" :key="key">
                 {{ key }}:
@@ -114,6 +117,7 @@ import componentsDefaultProps from '@/defaultProps'
 import EditWrapper from '@/components/EditWrapper.vue'
 import ComponentsList from '@/components/ComponentsList.vue'
 import ColorPicker from '@/components/ColorPicker.vue'
+import EditGroup from '@/components/EditGroup.vue'
 
 defineOptions({
   components: {
@@ -122,7 +126,8 @@ defineOptions({
     PropsTable,
     EditWrapper,
     ComponentsList,
-    ColorPicker
+    ColorPicker,
+    EditGroup
   }
 })
 

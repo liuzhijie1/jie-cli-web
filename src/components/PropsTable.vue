@@ -77,7 +77,7 @@ const globalData = useGlobalDataStore()
 const originProps = defineProps({
   type: {
     type: String,
-    required: true
+    // required: true
   },
   props: {
     type: Object,
