@@ -26,6 +26,8 @@ const newGroups = computed(() => {
   const allNormalProps = defaultEditGroups.reduce((prev, current) => {
     return [...prev, ...current.items]
   }, [] as string[])
+  // tag 不能编辑，把它过滤掉
+  allNormalProps.push('tag')
   const speicalProps = difference(Object.keys(props.props), allNormalProps)
   // eslint-disable-next-line vue/no-side-effects-in-computed-properties
   currentKey.value = '基本属性'

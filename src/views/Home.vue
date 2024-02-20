@@ -49,13 +49,16 @@
         </div>
       </a-layout-sider>
       <a-layout style="padding: 0 24px 24px">
-        <a-layout-content
-          class="preview-container"
-        >
+        <a-layout-content class="preview-container">
           画布区域
           <ul class="preview-list">
             <li v-for="item in components" :key="item.id">
-              <EditWrapper @edit="editProps" :active="currentIndex === item.id" :item-key="item.id" :props="item.props">
+              <EditWrapper
+                @edit="editProps"
+                :active="currentIndex === item.id"
+                :item-key="item.id"
+                :props="item.props"
+              >
                 <component :is="item.name" v-bind="item.props" />
               </EditWrapper>
             </li>
@@ -108,8 +111,9 @@
 import { ref, computed, markRaw } from 'vue'
 import { useGlobalDataStore } from '@/stores/globalData'
 // import Title from '@/components/Title.vue'
-import LTitle from '@/components/LTitle.vue'
-import LLink from '@/components/LLink.vue'
+import LText from '@/components/LText.vue'
+// import LTitle from '@/components/LTitle.vue'
+// import LLink from '@/components/LLink.vue'
 import PropsTable from '@/components/PropsTable.vue'
 import { clone } from 'lodash-es'
 import mapPropsToComponents from '@/propsMap'
@@ -121,8 +125,9 @@ import EditGroup from '@/components/EditGroup.vue'
 
 defineOptions({
   components: {
-    LTitle,
-    LLink,
+    // LTitle,
+    // LLink,
+    LText,
     PropsTable,
     EditWrapper,
     ComponentsList,
@@ -141,12 +146,13 @@ const handleOk = () => {
   showModal.value = false
 }
 
-const onItemCreated = (type: string) => {
-  const { props } = componentsDefaultProps[type]
+const onItemCreated = (component: any) => {
   // console.log('props', props)
   globalData.addComponentToEditor({
-    name: type,
-    props: clone(props)
+    name: component.name,
+    props: {
+      ...component.props
+    }
   })
 }
 const editProps = (index: string) => {

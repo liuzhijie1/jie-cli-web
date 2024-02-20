@@ -6,21 +6,63 @@
       :key="index"
       class="component-item"
     >
-      <component :is="item" />
+      <component :is="item.name" v-bind="item.props" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import LLink from './LLink.vue';
-import LTitle from './LTitle.vue';
-const componentList = ['l-title', 'l-link']
+import LText from './LText.vue';
+import { commonDefaultProps } from '@/defaultProps';
+
+const componentList = [
+  {
+    name: 'l-text',
+    props: {
+      text: '大标题',
+      ...commonDefaultProps,
+      fontSize: '30px',
+      fontWeight: 'bold',
+      tag: 'h2'
+    }
+  }, 
+  {
+    name: 'l-text',
+    props: {
+      text: '正文内容',
+      ...commonDefaultProps,
+      tag: 'p'
+    }
+  },
+  {
+    name: 'l-text',
+    props: {
+      text: '链接内容',
+      ...commonDefaultProps,
+      color: '#1890ff',
+      textDecoration: 'underline',
+      tag: 'p'
+    }
+  },
+  {
+    name: 'l-text',
+    props: {
+      text: '按钮内容',
+      ...commonDefaultProps,
+      color: '#ffffff',
+      backgroundColor: '#1890ff',
+      borderWidth: '1px',
+      borderColor: '#1890ff',
+      borderRadius: '2px',
+      tag: 'button'
+    }
+  }
+]
 
 defineOptions({
   components: {
-    LLink,
-    LTitle
+    LText
   }
 })
 
@@ -30,7 +72,7 @@ const emits = defineEmits<{
 
 const list = computed(() => componentList)
 
-const onItemClick = (type: string) => {
+const onItemClick = (type: any) => {
   emits('on-item-click', type);
 }
 

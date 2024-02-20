@@ -1,8 +1,8 @@
-import { mapValues } from "lodash-es";
+import { mapValues } from 'lodash-es'
 
 interface DefaultPropsType {
   [key: string]: {
-    props: object;
+    props: object
     extraProps?: {
       [key: string]: any
     }
@@ -42,35 +42,42 @@ export const commonDefaultProps = {
 }
 
 export const componentsDefaultProps: DefaultPropsType = {
-  'l-title': {
+  'l-text': {
     props: {
-      text: '大标题',
+      text: '正文内容',
       ...commonDefaultProps,
-      fontSize: '30px',
-    },
-    extraProps: {
-      lineHeight: {
-        min: 0,
-        max: 10
-      }
-    }
-  },
-  'l-link': {
-    props: {
-      text: '百度链接',
-      href: 'javascript:void()',
-      fontSize: '15px'
+      fontSize: '14px'
     }
   }
+  // 'l-title': {
+  //   props: {
+  //     text: '大标题',
+  //     ...commonDefaultProps,
+  //     fontSize: '30px'
+  //   },
+  //   extraProps: {
+  //     lineHeight: {
+  //       min: 0,
+  //       max: 10
+  //     }
+  //   }
+  // },
+  // 'l-link': {
+  //   props: {
+  //     text: '百度链接',
+  //     href: 'javascript:void()',
+  //     fontSize: '15px'
+  //   }
+  // }
 }
 
-export const transformToComponentProps = (props: {[key: string]: any}) => {
+export const transformToComponentProps = (props: { [key: string]: any }) => {
   return mapValues(props, (item) => {
     return {
       type: item.constructor,
       default: item
     }
-  })
+  }) as { [key: string]: any }
 }
 
-export default componentsDefaultProps;
+export default componentsDefaultProps
