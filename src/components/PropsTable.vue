@@ -78,12 +78,14 @@ import { map } from 'lodash-es'
 import ColorPicker from './ColorPicker.vue'
 import IconSwitch from './IconSwitch.vue'
 import ShadowPicker from './ShadowPicker.vue'
+import ImageProcess from './ImageProcess.vue'
 
 defineOptions({
   components: {
     ColorPicker,
     IconSwitch,
-    ShadowPicker
+    ShadowPicker,
+    ImageProcess
   }
 })
 
@@ -166,6 +168,9 @@ const finalProps = computed(() => {
   width: 90%;
 }
 .prop-component.component-shadow-picker {
+  width: 100%;
+}
+.prop-component.component-image-processer {
   width: 100%;
 }
 </style>

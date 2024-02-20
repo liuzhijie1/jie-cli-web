@@ -1,5 +1,5 @@
 <template>
-  <div class="edit-wrapper" @click="itemClick" :class="{ active: active }" :style="styleProps">
+  <div class="edit-wrapper" @click="itemClick" :class="{ active: active }" :style="styleProps" :draggable="true" @dragstart="handleDragStart">
     <slot></slot>
   </div>
 </template>
@@ -35,6 +35,13 @@ const itemClick = () => {
 }
 
 const styleProps = useStylePick(props.props || {}, ['position', 'top', 'left'])
+
+const handleDragStart = (e: DragEvent) => {
+  const currentElement = e.currentTarget as HTMLElement
+  currentElement.style.backgroundColor = 'yellow'
+  console.log(e.clientX)
+  console.log(e.clientY)
+}
 
 </script>
 

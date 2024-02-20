@@ -219,6 +219,10 @@ const mapPropsToComponents: MapTypes = {
   top: {
     ...numberToPxHandle,
     text: '位置Y'
+  },
+  imageSrc: {
+    ...defaultMap,
+    component: 'image-processer'
   }
 }
 

@@ -112,6 +112,7 @@ import { ref, computed, markRaw } from 'vue'
 import { useGlobalDataStore } from '@/stores/globalData'
 // import Title from '@/components/Title.vue'
 import LText from '@/components/LText.vue'
+import LImage from '@/components/LImage.vue'
 // import LTitle from '@/components/LTitle.vue'
 // import LLink from '@/components/LLink.vue'
 import PropsTable from '@/components/PropsTable.vue'
@@ -128,6 +129,7 @@ defineOptions({
     // LTitle,
     // LLink,
     LText,
+    LImage,
     PropsTable,
     EditWrapper,
     ComponentsList,

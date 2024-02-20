@@ -10,15 +10,6 @@ interface DefaultPropsType {
 }
 
 export const commonDefaultProps = {
-  // Basic props - font styles
-  fontSize: '14px',
-  fontWeight: 'normal',
-  fontStyle: 'normal',
-  textDecoration: 'none',
-  lineHeight: 1,
-  textAlign: 'left',
-  color: '#000000',
-  backgroundColor: '#ffffff',
   // actions
   actionType: '',
   url: '',
@@ -41,12 +32,35 @@ export const commonDefaultProps = {
   top: '0'
 }
 
+export const textDefaultProps = {
+  // Basic props - font styles
+  fontSize: '14px',
+  fontWeight: 'normal',
+  fontStyle: 'normal',
+  textDecoration: 'none',
+  lineHeight: 1,
+  textAlign: 'left',
+  color: '#000000',
+  backgroundColor: '#ffffff',
+  ...commonDefaultProps
+}
+
+export const imageDefaultProps = {
+  imageSrc: 'http://vue-maker.oss-cn-hangzhou.aliyuncs.com/vue-marker/5f46615702ee9063063b4f00.png',
+  ...commonDefaultProps
+}
+
 export const componentsDefaultProps: DefaultPropsType = {
   'l-text': {
     props: {
       text: '正文内容',
-      ...commonDefaultProps,
+      ...textDefaultProps,
       fontSize: '14px'
+    }
+  },
+  'l-image': {
+    props: {
+      ...imageDefaultProps
     }
   }
   // 'l-title': {
