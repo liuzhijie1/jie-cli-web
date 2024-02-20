@@ -6,7 +6,7 @@ interface PropDetailType {
   valueProp: string
   intialTransform: (v: any) => any
   afterTransform: (v: any) => any
-  text: string
+  text?: string
   subComponent?: string
   options?: { text: string; value: any }[]
   extraProps?: { [key: string]: any }
@@ -26,8 +26,8 @@ const defaultMap = {
 const numberToPxHandle = {
   ...defaultMap,
   component: 'a-input-number',
-  intialTransform: (v: any) => parseInt(v),
-  afterTransform: (e: any) => e + 'px'
+  intialTransform: (v: string) => parseInt(v),
+  afterTransform: (e: number) => e + 'px'
 }
 
 const mapPropsToComponents: MapTypes = {
@@ -57,11 +57,16 @@ const mapPropsToComponents: MapTypes = {
   },
   fontWeight: {
     ...defaultMap,
-    component: 'a-switch',
+    component: 'icon-switch',
+    intialTransform: (v: string) => v === 'bold',
+    afterTransform: (e: boolean) => (e ? 'bold' : 'normal'),
     valueProp: 'checked',
-    intialTransform: (v: any) => v === 'bold',
-    afterTransform: (e: any) => (e ? 'bold' : 'normal'),
-    text: '是否加粗'
+    extraProps: { iconName: 'BoldOutlined', tip: '加粗' }
+    // component: 'a-switch',
+    // valueProp: 'checked',
+    // intialTransform: (v: any) => v === 'bold',
+    // afterTransform: (e: any) => (e ? 'bold' : 'normal'),
+    // text: '是否加粗'
     // valueTransform: (v: any) => v === 'bold',
     // eventHandler: (e: any, key: any) => {
     //   const globalData = useGlobalDataStore()
@@ -70,6 +75,22 @@ const mapPropsToComponents: MapTypes = {
     //     value: e ? 'bold' : 'normal'
     //   })
     // }
+  },
+  fontStyle: {
+    ...defaultMap,
+    component: 'icon-switch',
+    intialTransform: (v: string) => v === 'italic',
+    afterTransform: (e: boolean) => (e ? 'italic' : 'normal'),
+    valueProp: 'checked',
+    extraProps: { iconName: 'ItalicOutlined', tip: '斜体' }
+  },
+  textDecoration: {
+    ...defaultMap,
+    component: 'icon-switch',
+    intialTransform: (v: string) => v === 'underline',
+    afterTransform: (e: boolean) => (e ? 'underline' : 'none'),
+    valueProp: 'checked',
+    extraProps: { iconName: 'UnderlineOutlined', tip: '下划线' }
   },
   lineHeight: {
     ...defaultMap,
@@ -119,8 +140,8 @@ const mapPropsToComponents: MapTypes = {
     ...defaultMap,
     component: 'a-input-number',
     text: '高度',
-    intialTransform: (v: any) => (v ? parseInt(v) : ''),
-    afterTransform: (e: any) => (e ? `${e}px` : '')
+    intialTransform: (v: string) => (v ? parseInt(v) : ''),
+    afterTransform: (e: number) => (e ? `${e}px` : '')
   },
   marginLeft: {
     ...numberToPxHandle,
@@ -155,16 +176,16 @@ const mapPropsToComponents: MapTypes = {
   borderWidth: {
     ...defaultMap,
     component: 'a-slider',
-    intialTransform: (v: any) => parseInt(v),
-    afterTransform: (e: any) => e + 'px',
+    intialTransform: (v: string) => parseInt(v),
+    afterTransform: (e: number) => e + 'px',
     text: '边框宽度',
     extraProps: { min: 0, max: 20 }
   },
   borderRadius: {
     ...defaultMap,
     component: 'a-slider',
-    intialTransform: (v: any) => parseInt(v),
-    afterTransform: (e: any) => e + 'px',
+    intialTransform: (v: string) => parseInt(v),
+    afterTransform: (e: number) => e + 'px',
     text: '边框圆角',
     extraProps: { min: 0, max: 20 }
   },
@@ -173,8 +194,8 @@ const mapPropsToComponents: MapTypes = {
     ...defaultMap,
     component: 'a-slider',
     text: '透明度',
-    intialTransform: (v: any) => (v ? v * 100 : 100),
-    afterTransform: (e: any) => e / 100,
+    intialTransform: (v: number) => (v ? v * 100 : 100),
+    afterTransform: (e: number) => e / 100,
     extraProps: { min: 0, max: 100, reverse: false }
   },
   position: {

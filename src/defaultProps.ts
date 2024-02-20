@@ -13,6 +13,8 @@ export const commonDefaultProps = {
   // Basic props - font styles
   fontSize: '14px',
   fontWeight: 'normal',
+  fontStyle: 'normal',
+  textDecoration: 'none',
   lineHeight: 1,
   textAlign: 'left',
   color: '#000000',

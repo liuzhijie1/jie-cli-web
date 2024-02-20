@@ -18,6 +18,26 @@ defineOptions({
   name: 'color-picker'
 })
 
+defineProps({
+  value: {
+    type: String
+  },
+  colors: {
+    type: Array as PropType<string[]>,
+    default: () => defaultColors
+  }
+})
+
+const emits = defineEmits<{
+  (type: 'change', data: any): void
+}>()
+
+const onChange = (color: string) => {
+  emits('change', color)
+}
+</script>
+
+<script lang="ts">
 const defaultColors: String[] = [
   '#fff',
   '#f5222d',
@@ -30,38 +50,6 @@ const defaultColors: String[] = [
   '#8c8c8c',
   '#000000'
 ]
-
-defineProps({
-  value: {
-    type: String
-  },
-  colors: {
-    type: Array as PropType<string[]>,
-    default() {
-      const defaultColors: String[] = [
-        '#fff',
-        '#f5222d',
-        '#fa541c',
-        '#fadb14',
-        '#52c41a',
-        '#13c2c2',
-        '#1890ff',
-        '#722ed1',
-        '#8c8c8c',
-        '#000000'
-      ]
-      return defaultColors;
-    }
-  }
-})
-
-const emits = defineEmits<{
-  (type: 'change', data: any): void
-}>()
-
-const onChange = (color: string) => {
-  emits('change', color)
-}
 </script>
 
 <style>

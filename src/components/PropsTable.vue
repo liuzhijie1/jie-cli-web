@@ -1,8 +1,14 @@
 <template>
   <div class="props-table">
     {{ type }}
-    <li v-for="(value, key) in finalProps" :key="key" class="prop-item">
-      <span class="label">{{ value.text }}: </span>
+    <li
+      v-for="(value, key) in finalProps"
+      :key="key"
+      class="prop-item"
+      :class="{ 'no-text': !value.text }"
+      :id="`item-${value.component}-${key}`"
+    >
+      <span class="label" v-if="value.text">{{ value.text }}: </span>
       <div :class="`prop-component component-${value.component}`">
         <component
           v-if="!value.options"
@@ -18,7 +24,12 @@
           :[value.valueProp]="value.value"
           v-on="value.events"
         >
-          <component :is="value.subComponent" v-for="(option, k) in value.options" :value="option.value" :key="k">
+          <component
+            :is="value.subComponent"
+            v-for="(option, k) in value.options"
+            :value="option.value"
+            :key="k"
+          >
             {{ option.text }}
           </component>
         </component>
@@ -65,10 +76,12 @@ import defaults from '@/defaultProps'
 import { computed } from 'vue'
 import { map } from 'lodash-es'
 import ColorPicker from './ColorPicker.vue'
+import IconSwitch from './IconSwitch.vue'
 
 defineOptions({
   components: {
-    ColorPicker
+    ColorPicker,
+    IconSwitch
   }
 })
 
@@ -76,7 +89,7 @@ const globalData = useGlobalDataStore()
 
 const originProps = defineProps({
   type: {
-    type: String,
+    type: String
     // required: true
   },
   props: {
@@ -133,6 +146,13 @@ const finalProps = computed(() => {
 }
 .label {
   width: 20%;
+}
+.prop-item.no-text {
+  display: inline-block;
+  margin: 0 10px 0 0;
+}
+#item-icon-switch-2 {
+  margin-left: 28%;
 }
 .prop-component {
   width: 70%;
