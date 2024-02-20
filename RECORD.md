@@ -10,3 +10,5 @@
 6. 增加对ant-design-vue的组件库支持，新增ant-design-vue-helper VsExtension
 7. 对Vue3默认语法的支持，vue3-snippets-for-vscode VsExtension
 8. VueJsx对在vue项目中支持jsx和tsx文件的插件  
+
+# aliyun oss
