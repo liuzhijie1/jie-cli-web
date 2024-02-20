@@ -222,7 +222,7 @@ const mapPropsToComponents: MapTypes = {
   },
   imageSrc: {
     ...defaultMap,
-    component: 'image-processer'
+    component: 'image-process'
   }
 }
 

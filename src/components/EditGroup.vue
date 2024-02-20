@@ -29,6 +29,7 @@ const newGroups = computed(() => {
   // tag 不能编辑，把它过滤掉
   allNormalProps.push('tag')
   const speicalProps = difference(Object.keys(props.props), allNormalProps)
+  console.log('speicalProps', speicalProps)
   // eslint-disable-next-line vue/no-side-effects-in-computed-properties
   currentKey.value = '基本属性'
   return [

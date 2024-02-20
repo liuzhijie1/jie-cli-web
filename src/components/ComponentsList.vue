@@ -12,10 +12,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
-import LText from './LText.vue';
-import LImage from './LImage.vue';
-import { componentsDefaultProps } from '@/defaultProps';
+import { computed } from 'vue'
+import LText from './LText.vue'
+import LImage from './LImage.vue'
+import { componentsDefaultProps } from '@/defaultProps'
 const textDefaultProps = componentsDefaultProps['l-text'].props
 const imageDefaultProps = componentsDefaultProps['l-image'].props
 
@@ -23,26 +23,26 @@ const componentList = [
   {
     name: 'l-text',
     props: {
-      text: '大标题',
       ...textDefaultProps,
+      text: '大标题',
       fontSize: '30px',
       fontWeight: 'bold',
       tag: 'h2'
     }
-  }, 
+  },
   {
     name: 'l-text',
     props: {
-      text: '正文内容',
       ...textDefaultProps,
+      text: '正文内容',
       tag: 'p'
     }
   },
   {
     name: 'l-text',
     props: {
-      text: '链接内容',
       ...textDefaultProps,
+      text: '链接内容',
       color: '#1890ff',
       textDecoration: 'underline',
       tag: 'p'
@@ -51,8 +51,8 @@ const componentList = [
   {
     name: 'l-text',
     props: {
-      text: '按钮内容',
       ...textDefaultProps,
+      text: '按钮内容',
       color: '#ffffff',
       backgroundColor: '#1890ff',
       borderWidth: '1px',
@@ -84,9 +84,8 @@ const emits = defineEmits<{
 const list = computed(() => componentList)
 
 const onItemClick = (type: any) => {
-  emits('on-item-click', type);
+  emits('on-item-click', type)
 }
-
 </script>
 
 <style scoped>

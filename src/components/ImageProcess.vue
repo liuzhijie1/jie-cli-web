@@ -12,8 +12,8 @@
         <img :src="baseImageUrl" id="processed-image" alt="" />
       </div>
     </a-modal>
-    <div class="image-preview">
-      <img :src="value" alt="" />
+    <div class="image-preview" :style="{ backgroundImage: backgroundUrl }">
+      <!-- <img :src="value" alt="" /> -->
     </div>
     <div class="image-process">
       <a-button @click="showModal = true">
@@ -57,7 +57,7 @@ let cropperData: any
 watch(showModal, (newValue) => {
   if (newValue) {
     nextTick(() => {
-      const image = document.getElementById('process-image') as HTMLImageElement
+      const image = document.getElementById('processed-image') as HTMLImageElement
       const cropper = new Cropper(image, {
         aspectRatio: 16 / 9,
         checkCrossOrigin: false,
@@ -75,10 +75,12 @@ watch(showModal, (newValue) => {
   }
 })
 const baseImageUrl = computed(() => props.value.split('?')[0])
+const backgroundUrl = computed(() => `url(${props.value})`)
 
 const handleOk = () => {
   const { x, y, width, height } = cropperData
-  const cropperedUrl = baseImageUrl.value + `?x-oss-process=image/crop,x_${x},y_${y},w_${width},h_${height}`
+  const cropperedUrl =
+    baseImageUrl.value + `?x-oss-process=image/crop,x_${x},y_${y},w_${width},h_${height}`
   emits('change', cropperedUrl)
   showModal.value = false
 }
@@ -89,8 +91,11 @@ const handleOk = () => {
   display: flex;
   justify-content: space-between;
 }
-.image-preview img {
+.image-preview {
   width: 150px;
+  height: 84px;
+  border: 1px solid #e6ebed;
+  background: no-repeat 50%/contain;
 }
 .image-cropper img {
   display: block;
